@@ -22,15 +22,15 @@ A professional portfolio website built with **Next.js 16**, **TypeScript**, **Ta
 
 ## Tech Stack
 
-| Layer     | Technology                            |
-| --------- | ------------------------------------- |
-| Framework | Next.js 16 (App Router)               |
-| Language  | TypeScript                            |
-| Styling   | Tailwind CSS v4                       |
-| Icons     | Lucide React + custom social SVGs     |
-| Animation | Framer Motion                         |
-| CI/CD     | GitHub Actions                        |
-| Hosting   | Vercel                                |
+| Layer     | Technology                        |
+| --------- | --------------------------------- |
+| Framework | Next.js 16 (App Router)           |
+| Language  | TypeScript                        |
+| Styling   | Tailwind CSS v4                   |
+| Icons     | Lucide React + custom social SVGs |
+| Animation | Framer Motion                     |
+| CI/CD     | GitHub Actions                    |
+| Hosting   | Vercel                            |
 
 ## Project Structure
 
@@ -85,6 +85,7 @@ npm start
 **All content is controlled from a single file:** `src/data/portfolio.ts`
 
 Edit this file to update:
+
 - Personal info (name, email, phone, location, social links)
 - Skills (frontend, backend, tools — names and proficiency levels)
 - Projects (title, description, tech stack, links, featured flag)
@@ -105,30 +106,33 @@ Edit CSS custom properties in `src/app/globals.css` under `:root` (light) and `.
 
 ## CI/CD & Deployment
 
-### Automatic Build Verification
+### Build & Deploy Workflow
 
-Every push and PR to `develop` or `main` triggers a build + lint check via GitHub Actions (`.github/workflows/build.yml`).
+A single workflow (`.github/workflows/build-deploy.yml`) handles both build verification and deployment. It is triggered **manually only** from the `develop` branch via GitHub Actions.
 
-### Manual Deployment to Vercel
-
-Deployment is triggered **manually** from the `develop` branch only via GitHub Actions (`.github/workflows/deploy.yml`).
+When triggered, you choose whether to:
+- **Build only** (`no`) — runs lint + build to verify everything compiles
+- **Preview** — builds and deploys to a Vercel preview URL
+- **Production** — builds and deploys to your live production URL
 
 **Setup required GitHub Secrets:**
 
-| Secret             | How to get it                                                        |
-| ------------------ | -------------------------------------------------------------------- |
-| `VERCEL_TOKEN`     | [Vercel Dashboard → Settings → Tokens](https://vercel.com/account/tokens) |
-| `VERCEL_ORG_ID`    | Run `vercel` locally, check `.vercel/project.json`                   |
-| `VERCEL_PROJECT_ID`| Run `vercel` locally, check `.vercel/project.json`                   |
+| Secret              | How to get it                                                             |
+| ------------------- | ------------------------------------------------------------------------- |
+| `VERCEL_TOKEN`      | [Vercel Dashboard → Settings → Tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID`     | Run `vercel link` locally, check `.vercel/project.json`                   |
+| `VERCEL_PROJECT_ID` | Run `vercel link` locally, check `.vercel/project.json`                   |
 
-**To deploy:**
+**To run:**
+
 1. Go to **Actions** tab in your GitHub repo
-2. Select **"Deploy to Vercel (Production)"** workflow
-3. Click **"Run workflow"** → select `develop` branch → choose environment → **Run**
+2. Select **"Build & Deploy"** workflow
+3. Click **"Run workflow"** → select `develop` branch → choose deploy option → **Run**
 
 ### Quick Deploy (Alternative)
 
 You can also deploy directly by connecting your GitHub repo to Vercel:
+
 1. Go to [vercel.com/new](https://vercel.com/new)
 2. Import the `my-portfolio` repository
 3. Vercel auto-detects Next.js — click **Deploy**

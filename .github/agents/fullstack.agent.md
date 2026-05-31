@@ -1,9 +1,7 @@
 <!-- BEGIN:nextjs-agent-rules -->
-
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-
 <!-- END:nextjs-agent-rules -->
 
 # Portfolio Agent
@@ -14,15 +12,15 @@ This is the **professional portfolio** of **Bhaskar Vijay Kumar Golusu**, a Full
 
 ## Tech Stack
 
-| Layer     | Technology                                       |
-| --------- | ------------------------------------------------ |
-| Framework | Next.js 16 (App Router, `src/` directory)        |
-| Language  | TypeScript (strict)                              |
-| Styling   | Tailwind CSS v4 (`@import "tailwindcss"` syntax) |
-| Icons     | lucide-react + custom SVG social icons           |
-| Animation | Framer Motion                                    |
-| Hosting   | Vercel                                           |
-| CI/CD     | GitHub Actions (build on push, manual deploy)    |
+| Layer     | Technology                                     |
+| --------- | ---------------------------------------------- |
+| Framework | Next.js 16 (App Router, `src/` directory)      |
+| Language  | TypeScript (strict)                            |
+| Styling   | Tailwind CSS v4 (`@import "tailwindcss"` syntax)|
+| Icons     | lucide-react + custom SVG social icons         |
+| Animation | Framer Motion                                  |
+| Hosting   | Vercel                                         |
+| CI/CD     | GitHub Actions (build on push, manual deploy)  |
 
 ## Project Structure
 
@@ -60,35 +58,32 @@ src/
 ## How to Make Changes
 
 ### Update personal info, skills, projects, or experience
-
 Edit `src/data/portfolio.ts` only. Components read from this file.
 
 ### Add a new project
-
 Add an entry to the `projects` array in `portfolio.ts` with `featured: true` to show it by default, or `false` to show only when "View All" is clicked.
 
 ### Add a new section
-
 1. Create `src/components/NewSection.tsx` (use `"use client"` directive)
 2. Import and add it to `src/app/page.tsx` between existing sections
 3. Add a nav link in `navLinks` array in `portfolio.ts`
 
 ### Change theme colors
-
 Edit CSS variables in `globals.css` under `:root` (light) and `.dark` (dark).
 
 ## Commands
 
-| Command         | Purpose                           |
-| --------------- | --------------------------------- |
+| Command         | Purpose                        |
+| --------------- | ------------------------------ |
 | `npm run dev`   | Start dev server (localhost:3000) |
-| `npm run build` | Production build                  |
-| `npm run lint`  | ESLint check                      |
-| `npm start`     | Serve production build locally    |
+| `npm run build` | Production build               |
+| `npm run lint`  | ESLint check                   |
+| `npm start`     | Serve production build locally |
 
 ## CI/CD
 
-- **`.github/workflows/build-deploy.yml`** — Single workflow triggered manually from GitHub Actions on `develop` branch only. Runs lint + build, and optionally deploys to Vercel (preview or production). Requires `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` as GitHub secrets for deployment.
+- **`.github/workflows/build.yml`** — Runs lint + build on every push/PR to `develop` and `main`.
+- **`.github/workflows/deploy.yml`** — Manual deployment to Vercel from `develop` branch only. Requires `VERCEL_TOKEN`, `VERCEL_ORG_ID`, and `VERCEL_PROJECT_ID` as GitHub secrets.
 
 ## Important Notes
 

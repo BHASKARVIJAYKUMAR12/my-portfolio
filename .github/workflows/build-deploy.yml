@@ -1,22 +1,23 @@
-name: Deploy to Vercel (Production)
+name: Build & Deploy
 
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Deployment environment"
+      deploy:
+        description: "Deploy to Vercel after build?"
         required: true
-        default: "production"
+        default: "no"
         type: choice
         options:
-          - production
+          - "no"
           - preview
+          - production
 
 permissions:
   contents: read
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
 
@@ -33,21 +34,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
       - name: Build
         run: npm run build
 
       - name: Install Vercel CLI
+        if: ${{ github.event.inputs.deploy != 'no' }}
         run: npm install -g vercel
 
       - name: Deploy to Vercel (Preview)
-        if: ${{ github.event.inputs.environment == 'preview' }}
+        if: ${{ github.event.inputs.deploy == 'preview' }}
         run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Deploy to Vercel (Production)
-        if: ${{ github.event.inputs.environment == 'production' }}
+        if: ${{ github.event.inputs.deploy == 'production' }}
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
