@@ -1,36 +1,139 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bhaskar Vijay Kumar Golusu — Portfolio
+
+A professional portfolio website built with **Next.js 16**, **TypeScript**, **Tailwind CSS v4**, and **Framer Motion**. Deployed on **Vercel**.
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss)
+![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-black?logo=vercel)
+
+## Features
+
+- **Hero Section** — Animated introduction with name, tagline, CTAs, and social links
+- **About Section** — Professional summary, specializations, stats, and quick info
+- **Skills Section** — Tabbed animated progress bars (Frontend / Backend / Tools & DevOps)
+- **Projects Section** — Expandable project cards with hover overlays and tech stack tags
+- **Experience Section** — Timeline layout with education and certifications sidebar
+- **Contact Section** — Contact form (mailto), contact info, and resume download
+- **Dark / Light Mode** — System preference detection + manual toggle, persisted in localStorage
+- **Fully Responsive** — Mobile-first design with hamburger menu
+- **Smooth Animations** — Scroll-triggered reveals using Framer Motion
+- **SEO Optimized** — Open Graph metadata, semantic HTML
+
+## Tech Stack
+
+| Layer     | Technology                            |
+| --------- | ------------------------------------- |
+| Framework | Next.js 16 (App Router)               |
+| Language  | TypeScript                            |
+| Styling   | Tailwind CSS v4                       |
+| Icons     | Lucide React + custom social SVGs     |
+| Animation | Framer Motion                         |
+| CI/CD     | GitHub Actions                        |
+| Hosting   | Vercel                                |
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── globals.css          # Theme variables, animations, scrollbar
+│   ├── layout.tsx           # Root layout, fonts, SEO metadata
+│   └── page.tsx             # Main page composing all sections
+├── components/
+│   ├── Navbar.tsx            # Sticky nav, dark mode toggle, mobile menu
+│   ├── Hero.tsx              # Hero section with animated background
+│   ├── About.tsx             # About me, stats, specializations
+│   ├── Skills.tsx            # Tabbed skill progress bars
+│   ├── Projects.tsx          # Project cards with hover overlay
+│   ├── Experience.tsx        # Work timeline + education sidebar
+│   ├── Contact.tsx           # Contact form + info + resume download
+│   ├── Footer.tsx            # Footer with links and social icons
+│   └── SocialIcons.tsx       # GitHub, LinkedIn, X SVG icons
+└── data/
+    └── portfolio.ts          # ⭐ All portfolio content (single source of truth)
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20+
+- npm
+
+### Install & Run
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Customization
 
-To learn more about Next.js, take a look at the following resources:
+**All content is controlled from a single file:** `src/data/portfolio.ts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit this file to update:
+- Personal info (name, email, phone, location, social links)
+- Skills (frontend, backend, tools — names and proficiency levels)
+- Projects (title, description, tech stack, links, featured flag)
+- Work experience (company, role, duration, bullet points, tech used)
+- Education and certifications
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Adding Your Resume
 
-## Deploy on Vercel
+Place your resume PDF in the `public/` folder and update the `resumeUrl` in `portfolio.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Adding Your Photo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Place your photo in the `public/` folder and update the `avatarUrl` in `portfolio.ts`.
+
+### Changing Theme Colors
+
+Edit CSS custom properties in `src/app/globals.css` under `:root` (light) and `.dark` (dark).
+
+## CI/CD & Deployment
+
+### Automatic Build Verification
+
+Every push and PR to `develop` or `main` triggers a build + lint check via GitHub Actions (`.github/workflows/build.yml`).
+
+### Manual Deployment to Vercel
+
+Deployment is triggered **manually** from the `develop` branch only via GitHub Actions (`.github/workflows/deploy.yml`).
+
+**Setup required GitHub Secrets:**
+
+| Secret             | How to get it                                                        |
+| ------------------ | -------------------------------------------------------------------- |
+| `VERCEL_TOKEN`     | [Vercel Dashboard → Settings → Tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID`    | Run `vercel` locally, check `.vercel/project.json`                   |
+| `VERCEL_PROJECT_ID`| Run `vercel` locally, check `.vercel/project.json`                   |
+
+**To deploy:**
+1. Go to **Actions** tab in your GitHub repo
+2. Select **"Deploy to Vercel (Production)"** workflow
+3. Click **"Run workflow"** → select `develop` branch → choose environment → **Run**
+
+### Quick Deploy (Alternative)
+
+You can also deploy directly by connecting your GitHub repo to Vercel:
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Import the `my-portfolio` repository
+3. Vercel auto-detects Next.js — click **Deploy**
+4. Set the **Production Branch** to `develop` in Vercel project settings
+
+## License
+
+This project is open source and available for personal use.
