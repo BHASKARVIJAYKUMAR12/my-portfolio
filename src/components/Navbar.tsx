@@ -1,10 +1,5 @@
 "use client";
 
-import {
-  GithubIcon,
-  LinkedinIcon,
-  TwitterIcon,
-} from "@/components/SocialIcons";
 import { navLinks, personalInfo } from "@/data/portfolio";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun, Download } from "lucide-react";
@@ -13,17 +8,19 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
+  
+  // Initialize dark mode from localStorage and system preference
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window === "undefined") return false;
     const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const isDark = saved === "dark" || (!saved && prefersDark);
-    setDarkMode(isDark);
-    document.documentElement.classList.toggle("dark", isDark);
-  }, []);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return saved === "dark" || (!saved && prefersDark);
+  });
+
+  // Apply dark mode class to document on mount and when darkMode changes
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
